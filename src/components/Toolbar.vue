@@ -28,6 +28,10 @@ export default {
         {
           name: 'Home',
           to: '/'
+        },
+        {
+          name: 'Login',
+          to: '/login'
         }
       ]
     }
