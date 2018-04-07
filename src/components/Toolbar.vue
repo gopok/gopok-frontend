@@ -1,15 +1,17 @@
 <template>
-  <div>
-<v-toolbar color="primary" dark app fixed>
-    <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat  v-for="(item, key) in items" :key="key" :to="item.to" > {{ item.name }}</v-btn>
-    </v-toolbar-items>
-           <v-spacer></v-spacer>
+   <div>
+    <v-toolbar color="primary" dark app fixed>
+      <v-toolbar-items class="hidden-sm-and-down">
+          <v-btn flat  v-for="(item, key) in items" :key="key" :to="item.to" > {{ item.name }}</v-btn>
+      </v-toolbar-items>
+      <v-spacer></v-spacer>
       <v-toolbar-side-icon @click="changeTheme">
         <v-icon>invert_colors</v-icon>
       </v-toolbar-side-icon>
+      <v-avatar>
+        <v-icon dark>account_circle</v-icon>
+      </v-avatar>
     </v-toolbar>
-
   </div>
 </template>
 

@@ -1,4 +1,6 @@
 <template>
+  <div>
+<v-flex xs12 sm6 offset-sm3>
   <v-form v-model="valid" ref="form" lazy-validation>
     <v-text-field
       label="Username"
@@ -14,12 +16,15 @@
       required
     ></v-text-field>
     <v-btn
+    color="primary"
       @click="login"
       :disabled="!valid"
     >
     Login
     </v-btn>
   </v-form>
+</v-flex>
+  </div>
 </template>
 
 <script>
