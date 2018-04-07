@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-form v-model="valid" ref="form" lazy-validation>
     <v-text-field
       label="Username"
@@ -21,6 +22,7 @@
     Login
     </v-btn>
   </v-form>
+  </div>
 </template>
 
 <script>
@@ -29,19 +31,20 @@ export default {
     return {
       valid: false,
       username: '',
-      usernameRules: [
-        v => !!v || 'Username is required'
-      ],
+      usernameRules: [v => !!v || 'Username is required'],
       password: '',
-      passwordRules: [
-        v => !!v || 'Password is required'
-      ]
+      passwordRules: [v => !!v || 'Password is required']
     }
   },
   methods: {
     login () {
       if (this.$refs.form.validate()) {
-        // send an API login request with the username and the password
+        this.$store
+          .dispatch('LOGIN', { username: this.username, password: this.password })
+          .then(() => {
+            console.log('logged')
+            this.$router.push({ name: 'Home' })
+          })
       }
     }
   }
