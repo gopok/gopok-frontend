@@ -34,6 +34,10 @@ export default {
         {
           name: 'Login',
           to: '/login'
+        },
+        {
+          name: 'Register',
+          to: '/register'
         }
       ]
     }

@@ -16,19 +16,20 @@ const getters = {
 }
 
 const actions = {
-  LOGIN (store, username, password) {
+  LOGIN (store, {username, password}) {
     return new Promise((resolve) => {
       ApiService
         .post('auth/sessions/login', {
-          username,
-          password
+          username: username,
+          password: password
         })
         .then(({data}) => {
-          store.commit('SET_AUTH', data.user)
+          console.log(data)
+          store.commit('SET_AUTH', data)
           resolve(data)
         })
-        .catch(({response}) => {
-          store.commit('SET_ERROR', response.data.errors)
+        .catch((err) => {
+          store.commit('SET_ERROR', err)
         })
     })
   },
@@ -41,25 +42,25 @@ const actions = {
           store.commit('PURGE_AUTH')
           resolve(data)
         })
-        .catch(({response}) => {
-          store.commit('SET_ERROR', response.data.errors)
+        .catch((err) => {
+          store.commit('SET_ERROR', err)
         })
     })
   },
-  REGISTER (store, username, email, password) {
+  REGISTER (store, {username, email, password}) {
     return new Promise((resolve, reject) => {
       ApiService
         .post('auth/users', {
-          username,
-          email,
-          password
+          username: username,
+          email: email,
+          password: password
         })
         .then(({data}) => {
-          store.commit('SET_AUTH', data.user)
+          store.commit('SET_AUTH', data)
           resolve(data)
         })
-        .catch(({response}) => {
-          store.commit('SET_ERROR', response.data.errors)
+        .catch((err) => {
+          store.commit('SET_ERROR', err)
         })
     })
   }
