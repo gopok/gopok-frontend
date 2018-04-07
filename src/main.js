@@ -6,11 +6,9 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import dotenv from 'dotenv'
 import ApiService from './api/ApiService '
 
 Vue.config.productionTip = false
-dotenv.config()
 ApiService.init()
 
 /* eslint-disable no-new */
