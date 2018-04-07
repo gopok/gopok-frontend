@@ -1,6 +1,4 @@
 <template>
-  <div>
-<v-flex xs12 sm6 offset-sm3>
   <v-form v-model="valid" ref="form" lazy-validation>
     <v-text-field
       label="Username"
@@ -23,15 +21,13 @@
     Login
     </v-btn>
   </v-form>
-</v-flex>
-  </div>
 </template>
 
 <script>
 export default {
   data () {
     return {
-      valid: true,
+      valid: false,
       username: '',
       usernameRules: [
         v => !!v || 'Username is required'

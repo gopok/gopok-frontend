@@ -1,26 +1,14 @@
 <template>
   <div>
-<v-flex xs12 sm6 offset-sm3 v-for="i in 10" :key="i">
-
-      <v-card class="my-1" >
-        <v-card-title>
-          <div>
-            <span class="grey--text">Test Header {{i}}</span><br>
-            <span>test</span><br>
-          </div>
-        </v-card-title>
-        <v-card-actions>
-          <v-btn flat color="accent">Share</v-btn>
-        </v-card-actions>
-      </v-card>
-
-    </v-flex>
+    <post v-for="i in 10" :key="i" :i="i"></post>
   </div>
 </template>
 
 <script>
+import Post from '@/components/Post'
 export default {
   name: 'Feed',
+  components: { Post },
   data () {
     return {
     }

@@ -2,11 +2,13 @@
  <v-app :dark="dark">
     <toolbar></toolbar>
     <v-content>
-        <v-container fluid>
+      <v-container fluid>
+        <v-flex xs12 sm6 offset-sm3>
           <v-slide-y-transition mode="out-in">
-              <router-view></router-view>
+            <router-view></router-view>
           </v-slide-y-transition>
-        </v-container>
+        </v-flex>
+      </v-container>
       </v-content>
   </v-app>
 </template>
