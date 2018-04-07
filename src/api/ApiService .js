@@ -6,11 +6,11 @@ const ApiService = {
   init () {
     Vue.use(VueAxios, axios)
     Vue.axios.defaults.baseURL = process.env.API_BASE_URL
+    Vue.axios.defaults.headers['content-type'] = `application/json`
   },
 
   setHeader () {
     Vue.axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.getters.currentUser.token}`
-    Vue.axios.defaults.headers.common['Content-Type'] = `application/json`
     console.log(`Bearer ${this.$store.getters.currentUser.token}`)
   },
 
