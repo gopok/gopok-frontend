@@ -14,6 +14,7 @@
       :rules="passwordRules"
       required
     ></v-text-field>
+    <p>*-Required field</p>
     <v-btn
     color="primary"
       @click="login"
@@ -50,3 +51,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+p{
+  color: green;
+}
+</style>
