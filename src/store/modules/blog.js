@@ -50,7 +50,7 @@ const actions = {
       await ApiService.post(`blog/posts/${postID}/upvote`, {})
       store.commit('ADD_USER_TO_UPVOTERS', {
         postID,
-        userID: store.rootState.auth.user.userID
+        userID: store.rootState.auth.session.userID
       })
     } catch (err) {
       store.commit('SHOW_ERROR', err)
@@ -63,7 +63,7 @@ const actions = {
       await ApiService.post(`blog/posts/${postID}/downvote`, {})
       store.commit('ADD_USER_TO_DOWNVOTERS', {
         postID,
-        userID: store.rootState.auth.user.userID
+        userID: store.rootState.auth.session.userID
       })
     } catch (err) {
       store.commit('SHOW_ERROR', err)

@@ -14,7 +14,7 @@
           <v-avatar>
                   <v-icon>account_circle</v-icon>
           </v-avatar>
-            {{currentUser.user.username}}
+            {{currentUser.username}}
         </v-chip>
          <v-menu
       offset-x
@@ -33,7 +33,7 @@
                <v-icon>account_circle</v-icon>
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title>{{currentUser.user.username}}</v-list-tile-title>
+              <v-list-tile-title>{{currentUser.username}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>

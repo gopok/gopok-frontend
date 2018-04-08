@@ -1,14 +1,14 @@
 import ApiService from '@/api/ApiService'
 
 const state = {
-  user: {},
+  session: {},
   isAuthenticated: false,
-  otherUuser: {}
+  otherUser: {}
 }
 
 const getters = {
-  currentUser: state => state.user,
-  currentUserID: state => state.user.userID,
+  currentUser: state => state.session.user,
+  currentUserID: state => state.session.userID,
   isAuthenticated: state => state.isAuthenticated
 }
 
@@ -66,19 +66,16 @@ const actions = {
 }
 
 const mutations = {
-  SET_AUTH (state, user) {
+  SET_AUTH (state, session) {
     state.isAuthenticated = true
-    state.user = user
-    state.errors = {}
+    state.session = session
   },
   GET_USER_BY_ID (state, otherUser) {
-    state.otherUuser = otherUser
-    state.errors = {}
+    state.otherUser = otherUser
   },
   PURGE_AUTH (state) {
     state.isAuthenticated = false
-    state.user = {}
-    state.errors = {}
+    state.session = null
   }
 }
 
