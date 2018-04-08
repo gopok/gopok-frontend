@@ -3,66 +3,61 @@ import ApiService from '@/api/ApiService'
 const state = {
   errors: null,
   user: {},
-  isAuthenticated: false
+  isAuthenticated: false,
+  otherUuser: {}
 }
 
 const getters = {
-  currentUser (state) {
-    return state.user
-  },
-  isAuthenticated (state) {
-    return state.isAuthenticated
-  }
+  currentUser: state => state.user,
+  isAuthenticated: state => state.isAuthenticated
 }
 
 const actions = {
-  LOGIN (store, {username, password}) {
-    return new Promise((resolve) => {
-      ApiService
+  async LOGIN (store, {username, password}) {
+    try {
+      const response = await ApiService
         .post('auth/sessions/login', {
           username: username,
           password: password
         })
-        .then(({data}) => {
-          console.log(data)
-          store.commit('SET_AUTH', data)
-          resolve(data)
-        })
-        .catch((err) => {
-          store.commit('SET_ERROR', err)
-        })
-    })
+      store.commit('SET_AUTH', response.data)
+    } catch (err) {
+      store.commit('SET_ERROR', err)
+    }
   },
-  LOGOUT (store) {
-    return new Promise((resolve, reject) => {
-      ApiService
+  async LOGOUT (store) {
+    try {
+      await ApiService
         .post('auth/sessions/logouts', {
         })
-        .then(({data}) => {
-          store.commit('PURGE_AUTH')
-          resolve(data)
-        })
-        .catch((err) => {
-          store.commit('SET_ERROR', err)
-        })
-    })
+      store.commit('PURGE_AUTH')
+    } catch (err) {
+      store.commit('SET_ERROR', err)
+    }
   },
-  REGISTER (store, {username, email, password}) {
-    return new Promise((resolve, reject) => {
-      ApiService
+  async REGISTER (store, {username, email, password}) {
+    try {
+      const response = await ApiService
         .post('auth/users', {
           username: username,
           email: email,
           password: password
         })
+      store.commit('SET_AUTH', response.data)
+    } catch (err) {
+      store.commit('SET_ERROR', err)
+    }
+  },
+  async LOAD_USER_BY_ID (store, {id}) {
+    try {
+      const response = await ApiService
+        .get('auth/users', id)
         .then(({data}) => {
-          store.commit('SET_AUTH', data)
-          resolve(data)
+          store.commit('GET_USER_BY_ID', response.data)
         })
-        .catch((err) => {
-          store.commit('SET_ERROR', err)
-        })
-    })
+    } catch (err) {
+      store.commit('SET_ERROR', err)
+    }
   }
 }
 
@@ -73,6 +68,10 @@ const mutations = {
   SET_AUTH (state, user) {
     state.isAuthenticated = true
     state.user = user
+    state.errors = {}
+  },
+  GET_USER_BY_ID (state, otherUuser) {
+    state.otherUuser = otherUuser
     state.errors = {}
   },
   PURGE_AUTH (state) {

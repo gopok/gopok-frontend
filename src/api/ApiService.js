@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import store from './../store'
 
 const ApiService = {
   init () {
@@ -10,8 +11,8 @@ const ApiService = {
   },
 
   setHeader () {
-    Vue.axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.getters.currentUser.token}`
-    console.log(`Bearer ${this.$store.getters.currentUser.token}`)
+    Vue.axios.defaults.headers.common['Authorization'] = `Bearer ${store.getters.currentUser.token}`
+    console.log(`Bearer ${store.getters.currentUser.token}`)
   },
 
   query (path, params) {
