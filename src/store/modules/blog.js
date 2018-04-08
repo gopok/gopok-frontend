@@ -19,31 +19,27 @@ const actions = {
       store.commit('SET_ERROR', err)
     }
   },
-  async CREATE_NEW_POST (store, {content}) {
+  async CREATE_NEW_POST (store, { content }) {
     try {
       ApiService.setHeader()
-      await ApiService.post(
-        'blog/posts', {content: content}
-      )
+      let resp = await ApiService.post('blog/posts', { content: content })
+      store.commit('ADD_POST_AT_START', resp.data)
     } catch (err) {
       store.commit('SET_ERROR', err)
     }
   },
-  async LOAD_POST_BY_ID (store, {id}) {
+  async LOAD_POST_BY_ID (store, { id }) {
     try {
-      const response = await ApiService.get(
-        'blog/posts', id)
+      const response = await ApiService.get('blog/posts', id)
       store.commit('GET_POST_BY_ID', response.data)
     } catch (err) {
       store.commit('SET_ERROR', err)
     }
   },
-  async CREATE_NEW_COMMENT_BY_ID  (store, {id, content}) {
+  async CREATE_NEW_COMMENT_BY_ID (store, { id, content }) {
     try {
       ApiService.setHeader()
-      await ApiService.post(
-        `blog/posts/${id}/comments`, {content: content}
-      )
+      await ApiService.post(`blog/posts/${id}/comments`, { content: content })
     } catch (err) {
       store.commit('SET_ERROR', err)
     }
@@ -57,6 +53,9 @@ const mutations = {
   ADD_POSTS (state, { posts, nextCursor = '' }) {
     state.posts = [...state.posts, ...posts]
     state.nextCursor = nextCursor
+  },
+  ADD_POST_AT_START (state, post) {
+    state.posts = [post, ...state.posts]
   },
   GET_POST_BY_ID (state, otherpost) {
     state.otherpost = otherpost
