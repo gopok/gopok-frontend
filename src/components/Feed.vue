@@ -1,6 +1,7 @@
 <template>
   <div>
     <post v-for="post in posts" :key="post.id" :post="post"></post>
+    <v-btn color="info" @click="loadMore" block>Load more</v-btn>
   </div>
 </template>
 
@@ -12,6 +13,11 @@ export default {
   components: { Post },
   data () {
     return {}
+  },
+  methods: {
+    loadMore () {
+      this.$store.dispatch('LOAD_NEW_POSTS')
+    }
   },
   computed: {
     // mix the getters into computed with object spread operator

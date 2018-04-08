@@ -8,7 +8,10 @@ const state = {
 
 const actions = {
   async LOAD_NEW_POSTS (store) {
-    let data = await ApiService.get('/blog/posts', `new?after=${encodeURIComponent(store.state.nextCursor)}`)
+    let data = await ApiService.get(
+      '/blog/posts',
+      `new?after=${encodeURIComponent(store.state.nextCursor)}`
+    )
     store.commit('ADD_POSTS', data.data)
   }
 }
