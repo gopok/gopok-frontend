@@ -16,7 +16,7 @@ const actions = {
       )
       store.commit('ADD_POSTS', response.data)
     } catch (err) {
-      store.commit('SET_ERROR', err)
+      store.commit('SHOW_ERROR', err)
     }
   },
   async CREATE_NEW_POST (store, { content }) {
@@ -25,7 +25,7 @@ const actions = {
       let resp = await ApiService.post('blog/posts', { content: content })
       store.commit('ADD_POST_AT_START', resp.data)
     } catch (err) {
-      store.commit('SET_ERROR', err)
+      store.commit('SHOW_ERROR', err)
     }
   },
   async LOAD_POST_BY_ID (store, { id }) {
@@ -33,7 +33,7 @@ const actions = {
       const response = await ApiService.get('blog/posts', id)
       store.commit('GET_POST_BY_ID', response.data)
     } catch (err) {
-      store.commit('SET_ERROR', err)
+      store.commit('SHOW_ERROR', err)
     }
   },
   async CREATE_NEW_COMMENT_BY_ID (store, { id, content }) {
@@ -41,7 +41,7 @@ const actions = {
       ApiService.setHeader()
       await ApiService.post(`blog/posts/${id}/comments`, { content: content })
     } catch (err) {
-      store.commit('SET_ERROR', err)
+      store.commit('SHOW_ERROR', err)
     }
   }
 }

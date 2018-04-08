@@ -1,7 +1,6 @@
 import ApiService from '@/api/ApiService'
 
 const state = {
-  errors: null,
   user: {},
   isAuthenticated: false,
   otherUuser: {}
@@ -22,7 +21,7 @@ const actions = {
       localStorage.setItem('auth', JSON.stringify(response.data))
       store.commit('SET_AUTH', response.data)
     } catch (err) {
-      store.commit('SET_ERROR', err)
+      store.commit('SHOW_ERROR', err)
     }
   },
   async LOGOUT (store) {
@@ -31,7 +30,7 @@ const actions = {
       store.commit('PURGE_AUTH')
       localStorage.removeItem('auth')
     } catch (err) {
-      store.commit('SET_ERROR', err)
+      store.commit('SHOW_ERROR', err)
     }
   },
   async REGISTER (store, { username, email, password }) {
@@ -43,7 +42,7 @@ const actions = {
       })
       store.commit('SET_AUTH', response.data)
     } catch (err) {
-      store.commit('SET_ERROR', err)
+      store.commit('SHOW_ERROR', err)
     }
   },
   async LOAD_USER_BY_ID (store, { id }) {
@@ -54,7 +53,7 @@ const actions = {
         }
       )
     } catch (err) {
-      store.commit('SET_ERROR', err)
+      store.commit('SHOW_ERROR', err)
     }
   },
   LOAD_AUTH_FROM_LOCAL_STORAGE (store) {
@@ -65,9 +64,6 @@ const actions = {
 }
 
 const mutations = {
-  SET_ERROR (state, error) {
-    state.errors = error
-  },
   SET_AUTH (state, user) {
     state.isAuthenticated = true
     state.user = user
