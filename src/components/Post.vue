@@ -2,11 +2,11 @@
   <v-card class="my-1">
     <v-card-title>
         <div>
-      <v-chip dark text-color="grey" hover>
-        <v-avatar class="grey">
-        </v-avatar>
-        {{post.author.username}}
-      </v-chip>
+          <v-chip dark text-color="grey" hover>
+            <v-avatar class="grey">
+            </v-avatar>
+            {{post.author.username}}
+          </v-chip>
         </div>
       <p>
       {{post.content}}
