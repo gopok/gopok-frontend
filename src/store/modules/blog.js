@@ -56,6 +56,19 @@ const actions = {
       store.commit('SHOW_ERROR', err)
       throw err
     }
+  },
+  async DOWNVOTE_POST (store, postID) {
+    try {
+      ApiService.setHeader()
+      await ApiService.post(`blog/posts/${postID}/downvote`, {})
+      store.commit('ADD_USER_TO_DOWNVOTERS', {
+        postID,
+        userID: store.rootState.auth.user.userID
+      })
+    } catch (err) {
+      store.commit('SHOW_ERROR', err)
+      throw err
+    }
   }
 }
 
@@ -80,6 +93,9 @@ const mutations = {
   },
   ADD_USER_TO_UPVOTERS (state, { postID, userID }) {
     state.posts.find(p => p.id === postID).upvoters.push(userID)
+  },
+  ADD_USER_TO_DOWNVOTERS (state, { postID, userID }) {
+    state.posts.find(p => p.id === postID).downvoters.push(userID)
   }
 }
 
