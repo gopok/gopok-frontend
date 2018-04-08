@@ -22,8 +22,8 @@ const actions = {
   async CREATE_NEW_POST (store, { content }) {
     try {
       ApiService.setHeader()
-      let resp = await ApiService.post('blog/posts', { content: content })
-      store.commit('ADD_POST_AT_START', resp.data)
+      const response = await ApiService.post('blog/posts', { content: content })
+      store.commit('ADD_POST_AT_START', response.data)
     } catch (err) {
       store.commit('SHOW_ERROR', err)
     }
