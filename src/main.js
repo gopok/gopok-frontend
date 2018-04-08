@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import ApiService from './api/ApiService '
+import ApiService from '@/api/ApiService'
 
 Vue.config.productionTip = false
 ApiService.init()
