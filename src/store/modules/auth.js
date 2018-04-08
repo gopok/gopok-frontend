@@ -8,6 +8,7 @@ const state = {
 
 const getters = {
   currentUser: state => state.user,
+  currentUserID: state => state.user.userID,
   isAuthenticated: state => state.isAuthenticated
 }
 
@@ -69,8 +70,8 @@ const mutations = {
     state.user = user
     state.errors = {}
   },
-  GET_USER_BY_ID (state, otherUuser) {
-    state.otherUuser = otherUuser
+  GET_USER_BY_ID (state, otherUser) {
+    state.otherUuser = otherUser
     state.errors = {}
   },
   PURGE_AUTH (state) {

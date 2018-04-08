@@ -43,6 +43,19 @@ const actions = {
     } catch (err) {
       store.commit('SHOW_ERROR', err)
     }
+  },
+  async UPVOTE_POST (store, postID) {
+    try {
+      ApiService.setHeader()
+      await ApiService.post(`blog/posts/${postID}/upvote`, {})
+      store.commit('ADD_USER_TO_UPVOTERS', {
+        postID,
+        userID: store.rootState.auth.user.userID
+      })
+    } catch (err) {
+      store.commit('SHOW_ERROR', err)
+      throw err
+    }
   }
 }
 
@@ -64,6 +77,9 @@ const mutations = {
   CLEAR_POSTS (state) {
     state.posts = []
     state.nextCursor = ''
+  },
+  ADD_USER_TO_UPVOTERS (state, { postID, userID }) {
+    state.posts.find(p => p.id === postID).upvoters.push(userID)
   }
 }
 
