@@ -10,12 +10,18 @@
           </span>
         </v-chip>
         <v-spacer />
-        <v-btn :outline="!upvoted" small color="blue" fab @click="upvote" :loading="upvoteLoading">
-          <v-icon>arrow_upward</v-icon>
-        </v-btn>
-        <v-btn outline small color="red" fab>
-          <v-icon>arrow_downward</v-icon>
-        </v-btn>
+        <v-badge overlap>
+            <span slot="badge">{{post.upvoters.length}}</span>
+            <v-btn :outline="!upvoted" small color="blue" fab @click="upvote" :loading="upvoteLoading" depressed>
+              <v-icon>arrow_upward</v-icon>
+            </v-btn>
+        </v-badge>
+        <v-badge overlap color="red">
+          <span slot="badge">{{post.downvoters.length}}</span>
+          <v-btn :outline="!downvoted" small color="red" fab @click="downvote" :loading="downvoteLoading" depressed>
+            <v-icon>arrow_downward</v-icon>
+          </v-btn>
+        </v-badge>
       </v-layout>
       <div></div>
       <v-layout>
@@ -38,13 +44,17 @@ export default {
   props: ['post'],
   data () {
     return {
-      upvoteLoading: false
+      upvoteLoading: false,
+      downvoteLoading: false
     }
   },
   computed: {
     ...mapGetters(['currentUserID']),
     upvoted () {
       return this.post.upvoters.indexOf(this.currentUserID) !== -1
+    },
+    downvoted () {
+      return this.post.downvoters.indexOf(this.currentUserID) !== -1
     }
   },
   methods: {
@@ -54,6 +64,14 @@ export default {
         await this.$store.dispatch('UPVOTE_POST', this.post.id)
       } finally {
         this.upvoteLoading = false
+      }
+    },
+    async downvote () {
+      this.downvoteLoading = true
+      try {
+        await this.$store.dispatch('DOWNVOTE_POST', this.post.id)
+      } finally {
+        this.downvoteLoading = false
       }
     }
   }
