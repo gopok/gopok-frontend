@@ -11,6 +11,7 @@ import ApiService from '@/api/ApiService'
 Vue.config.productionTip = false
 ApiService.init()
 
+store.dispatch('LOAD_AUTH_FROM_LOCAL_STORAGE')
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
