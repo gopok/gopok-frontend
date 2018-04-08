@@ -2,7 +2,9 @@
    <div>
     <v-toolbar color="primary" dark app fixed>
       <v-toolbar-items class="hidden-sm-and-down">
-          <v-btn flat  v-for="(item, key) in items" :key="key" :to="item.to" > {{ item.name }}</v-btn>
+          <v-btn flat  to="/" > Home</v-btn>
+           <v-btn flat  v-if="logged" @click="logout"> Logout</v-btn>
+          <v-btn flat  v-if="!logged" v-for="(item, key) in items" :key="key" :to="item.to" > {{ item.name }}</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-toolbar-side-icon @click="changeTheme">
@@ -21,16 +23,13 @@ export default {
   name: 'Toolbar',
   computed: {
     ...mapGetters({
-      dark: 'isDark'
+      dark: 'isDark',
+      logged: 'isAuthenticated'
     })
   },
   data () {
     return {
       items: [
-        {
-          name: 'Home',
-          to: '/'
-        },
         {
           name: 'Login',
           to: '/login'
@@ -49,6 +48,14 @@ export default {
       } else {
         this.$store.commit('setDark', true)
       }
+    },
+    logout () {
+      this.$store
+        .dispatch('LOGOUT')
+        .then(() => {
+          console.log('LOGOUT')
+          this.$router.push({ name: 'Home' })
+        })
     }
   }
 }

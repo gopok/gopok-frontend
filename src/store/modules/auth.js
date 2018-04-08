@@ -27,7 +27,8 @@ const actions = {
   },
   async LOGOUT (store) {
     try {
-      await ApiService.post('auth/sessions/logouts', {})
+      ApiService.setHeader()
+      await ApiService.post('auth/sessions/logout', {})
       store.commit('PURGE_AUTH')
       localStorage.removeItem('auth')
     } catch (err) {
