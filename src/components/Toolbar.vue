@@ -3,16 +3,48 @@
     <v-toolbar color="primary" dark app fixed>
       <v-toolbar-items class="hidden-sm-and-down">
           <v-btn flat  to="/" > Home</v-btn>
-           <v-btn flat  v-if="logged" @click="logout"> Logout</v-btn>
           <v-btn flat  v-if="!logged" v-for="(item, key) in items" :key="key" :to="item.to" > {{ item.name }}</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-toolbar-side-icon @click="changeTheme">
         <v-icon>invert_colors</v-icon>
       </v-toolbar-side-icon>
-      <v-avatar>
-        <v-icon dark>account_circle</v-icon>
-      </v-avatar>
+      <div v-if="logged">
+         <v-chip>
+          <v-avatar>
+                  <v-icon>account_circle</v-icon>
+          </v-avatar>
+            {{currentUser.user.username}}
+        </v-chip>
+         <v-menu
+      offset-x
+      :close-on-content-click="false"
+      :nudge-width="200"
+      offset-y
+      v-model="menu"
+    >
+ <v-btn icon slot="activator" dark>
+              <v-icon>more_vert</v-icon>
+            </v-btn>
+      <v-card>
+        <v-list>
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+               <v-icon>account_circle</v-icon>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>{{currentUser.user.username}}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn flat color="error" @click="logout">Logout</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-menu>
+    </div>
     </v-toolbar>
   </div>
 </template>
@@ -24,11 +56,13 @@ export default {
   computed: {
     ...mapGetters({
       dark: 'isDark',
-      logged: 'isAuthenticated'
+      logged: 'isAuthenticated',
+      currentUser: 'currentUser'
     })
   },
   data () {
     return {
+      menu: false,
       items: [
         {
           name: 'Login',
