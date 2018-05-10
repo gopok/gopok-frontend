@@ -1,10 +1,19 @@
 <template>
  <v-card>
     <v-card-text>
+      <v-text-field
+                  v-model="title"
+                  :rules="titleRules"
+                  :counter="30"
+                label="Title"
+                required
+                ></v-text-field>
         <v-text-field
             v-model="content"
             label="Post content"
+            :rules="contentRules"
             multi-line
+            required
         />
         <v-btn color="primary" @click="createPost">Submit</v-btn>
     </v-card-text>
@@ -16,7 +25,14 @@ export default {
   name: 'NewPostForm',
   data () {
     return {
-      content: ''
+      title: '',
+      titleRules: [
+        v => !!v || 'Title is required'
+      ],
+      content: '',
+      contentRules: [
+        v => !!v || 'Content is required'
+      ]
     }
   },
   methods: {
